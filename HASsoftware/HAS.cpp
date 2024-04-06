@@ -244,7 +244,7 @@ void HASampler(      vector<double>& chain,        /* Position Samples output fr
          p_sqn   = sqrNorm( p );            // |p|^2
          pn_sqn  = sqrNorm( pn );           // |pn|^2
          
-         A = exp( (Vq - Vqn) + 0.5*( ((Uq - Uqn) / (eps*eps)) + ((v_sqn - vr_sqn) / (sp*sp)) + (p_sqn - pn_sqn) ) );  // Metropolis ratio
+         A = exp( beta_q*( (Vq - Vqn) + 0.5*( ((Uq - Uqn) / (eps*eps)) + ((v_sqn - vr_sqn) / (sp*sp)) + (p_sqn - pn_sqn) ) ) );  // Metropolis ratio
          
          if ( SU(RG) > A ){      // Accept with probability A,
             softFlag = Met_rej_soft;    // rejected
@@ -510,8 +510,8 @@ void HASampler(      vector<double>& chain,        /* Position Samples output fr
             
             // NOTE: Here can add V(q) and V(qn) to M-H ratio, for now assume V=0
             
-            A  = exp( Vq - Vqn + .5*( p_sqn - pn_sqn ) ); //  part of the Metropolis ratio
-            A *= ( detq / detqn );    // since r(q)/r(qn) = detq/detqn
+            A  = exp( beta_q*( Vq - Vqn + .5*( p_sqn - pn_sqn ) ) ); //  part of the Metropolis ratio
+            A *= detq / detqn;    // since r(q)/r(qn) = detq/detqn
             
             if ( SU(RG) > A ){      // Accept with probability A,
                stats->HardRejectionMetropolis++;
