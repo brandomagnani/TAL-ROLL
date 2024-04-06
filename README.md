@@ -1,3 +1,3 @@
-# Temperature Accelerated Langevin-ROLL
+# Temperature Accelerated Langevin-ROLL (biased method)
 
 
